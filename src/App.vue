@@ -246,11 +246,18 @@ export default {
         name: this.ticker.toUpperCase(),
         price: "-"
       };
-      this.tickers.push(currentTicker);
-      this.filter = "";
+      if (!this.tickers.find(el => el.name === currentTicker.name)) {
+        this.tickers.push(currentTicker);
+        this.filter = "";
 
-      localStorage.setItem("cryptonomicon-list", JSON.stringify(this.tickers));
-      this.subscribeToUpdate(currentTicker.name);
+        localStorage.setItem(
+          "cryptonomicon-list",
+          JSON.stringify(this.tickers)
+        );
+        this.subscribeToUpdate(currentTicker.name);
+      } else {
+        this.includes = !this.includes;
+      }
     },
 
     handleDelete(tickerToRemove) {
